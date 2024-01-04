@@ -1,4 +1,6 @@
 @startuml
+title US011 - Register a vaccine
+
 autonumber
 
 actor Administrator as Admin

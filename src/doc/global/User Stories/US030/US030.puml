@@ -1,4 +1,5 @@
 @startuml
+title US030 - Schedule a Vaccination as an SNS User
 autonumber
 actor SNSUser
 

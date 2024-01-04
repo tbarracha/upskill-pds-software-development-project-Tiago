@@ -1,4 +1,5 @@
 @startuml
+title US013 - Register a Vaccination Center
 autonumber
 actor Administrator as Admin
 

@@ -1,4 +1,6 @@
 @startuml
+title US010 - Specify a new vaccine type
+
 actor Administrator as Admin
 
 Admin -> System: Specify New Vaccine Type

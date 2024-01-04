@@ -1,4 +1,5 @@
 @startuml
+title US022 - Register Arrival of a SNS User for Vaccine
 autonumber
 actor Receptionist as Reception
 
