@@ -1,0 +1,25 @@
+@startuml
+autonumber
+
+actor Administrator as Admin
+participant ":System" as System
+
+activate Admin
+    Admin -> System: Register Vaccine
+
+    activate System
+    ' Form displayed
+    Admin -> System: Enter Vaccine Details\n(Name, Brand, Vaccine Type, Vaccine Tech)
+
+    'Name and Brand valid
+    System --> Admin: Display Generated Id
+    deactivate System
+
+    Admin -> System: Confirm Registration
+    activate System
+
+    ' Registration confirmed
+    System --> Admin: Success or Failure Message
+    deactivate System
+deactivate Admin
+@enduml

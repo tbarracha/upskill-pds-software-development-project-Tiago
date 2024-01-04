@@ -1,0 +1,12 @@
+@startuml
+autonumber
+actor Administrator as Admin
+
+Admin -> System: Get List of All Vaccines
+activate System
+
+' System processes the request and generates the list
+System --> Admin: List of Vaccines (Grouped by type, listed alphabetically by name)
+
+deactivate System
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor SNSUser
+
+SNSUser -> System: Schedule Vaccination
+activate System
+
+' SNS User provides details for the vaccination scheduling
+SNSUser -> System: Enter Vaccination Details\n(SNS User Details, Vaccination Details, Preferred Date and Time)
+
+' System processes the request and confirms the vaccination scheduling
+System --> SNSUser: Scheduling Result (Success or Failure)
+
+deactivate System
+@enduml

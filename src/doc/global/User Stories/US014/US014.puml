@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Administrator as Admin
+
+Admin -> System: Register Employee
+activate System
+
+' Administrator provides details for the employee
+Admin -> System: Enter Employee Details\n(Name, Role, Other Details)
+
+' System processes the request and confirms the employee registration
+System --> Admin: Registration Result (Success or Failure)
+
+deactivate System
+@enduml

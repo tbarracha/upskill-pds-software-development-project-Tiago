@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Administrator as Admin
+
+Admin -> System: Get List of Employees by Function/Role
+activate System
+
+' Administrator provides the function/role to filter employees
+Admin -> System: Enter Function/Role\n(Get List)
+
+' System processes the request and generates the list
+System --> Admin: List of Employees with the Specified Function/Role
+
+deactivate System
+@enduml

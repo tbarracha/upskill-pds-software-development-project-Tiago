@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Receptionist as Reception
+
+Reception -> System: Schedule Vaccination
+activate System
+
+' Receptionist provides details for the vaccination scheduling
+Reception -> System: Enter Vaccination Details\n(SNS User Details, Vaccination Details, Preferred Date and Time)
+
+' System processes the request and confirms the vaccination scheduling
+System --> Reception: Scheduling Result (Success or Failure)
+
+deactivate System
+@enduml

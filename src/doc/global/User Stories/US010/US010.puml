@@ -1,0 +1,11 @@
+@startuml
+actor Administrator as Admin
+
+Admin -> System: Specify New Vaccine Type
+activate System
+
+' Code is unique
+System --> Admin: Confirmation Message\n(Success or Failure)
+
+deactivate System
+@enduml

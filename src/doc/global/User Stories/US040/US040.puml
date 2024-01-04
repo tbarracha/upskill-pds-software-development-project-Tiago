@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Nurse
+
+Nurse -> System: Consult Users in Waiting Room
+activate System
+
+' Nurse provides details for the waiting room consultation
+Nurse -> System: Enter Nurse Details\n(Nurse Details, Waiting Room Details)
+
+' System processes the request and provides a list of users
+System --> Nurse: List of Users in Waiting Room
+
+deactivate System
+@enduml

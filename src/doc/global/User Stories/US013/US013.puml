@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Administrator as Admin
+
+Admin -> System: Register Vaccination Center
+activate System
+
+' Administrator provides details for the vaccination center
+Admin -> System: Enter Vaccination Center Details\n(Name, Location, Pandemic Response)
+
+' System processes the request and confirms the registration
+System --> Admin: Registration Result (Success or Failure)
+
+deactivate System
+@enduml

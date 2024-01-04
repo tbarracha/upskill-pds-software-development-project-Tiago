@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Receptionist as Reception
+
+Reception -> System: Register Arrival of SNS User
+activate System
+
+' Receptionist provides details for the arrival registration
+Reception -> System: Enter Arrival Details\n(SNS User Details, Arrival Time)
+
+' System processes the request and confirms the arrival registration
+System --> Reception: Registration Result (Success or Failure)
+
+deactivate System
+@enduml

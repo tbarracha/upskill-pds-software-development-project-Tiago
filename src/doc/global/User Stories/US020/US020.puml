@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Receptionist as Reception
+
+Reception -> System: Register SNS User
+activate System
+
+' Receptionist provides details for the SNS user
+Reception -> System: Enter SNS User Details\n(Name, Birth Date, Sex, Postal Address, Phone Number, E-mail Address, Citizen Card Number, SNS User Number)
+
+' System processes the request and confirms the SNS user registration
+System --> Reception: Registration Result (Success or Failure)
+
+deactivate System
+@enduml

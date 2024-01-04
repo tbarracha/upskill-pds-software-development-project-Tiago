@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor Nurse
+
+Nurse -> System: Record Vaccine Administration
+activate System
+
+' Nurse provides details for the vaccine administration recording
+Nurse -> System: Enter Nurse Details\n(Nurse Details, SNS User Details, Vaccine Details)
+
+' System processes the request and confirms the vaccine administration recording
+System --> Nurse: Recording Result (Success or Failure)
+
+deactivate System
+@enduml
