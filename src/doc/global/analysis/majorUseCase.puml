@@ -1,0 +1,45 @@
+@startuml
+
+usecase SpecifyNewVaccineType as "US010 - Specify New Vaccine Type"
+usecase RegisterVaccine as "US011 - Register a Vaccine"
+usecase GetListAllVaccines as "US012 - Get List of All Vaccines"
+usecase RegisterVaccinationCenter as "US013 - Register a Vaccination Center"
+usecase RegisterEmployee as "US014 - Register an Employee"
+usecase GetListEmployeesByRole as "US015 - Get List of Employees by Function/Role"
+
+usecase RegisterSNSUser as "US020 - Register SNS User"
+usecase ScheduleVaccination as "US021 - Schedule a Vaccination"
+usecase RegisterArrivalSNSUser as "US022 - Register Arrival of SNS User for Vaccine"
+
+usecase ScheduleVaccinationSNSUser as "US030 - Schedule a Vaccination"
+
+usecase ConsultUsersInWaitingRoom as "US040 - Consult Users in Waiting Room"
+usecase RecordVaccineAdministration as "US041 - Record Vaccine Administration"
+
+actor Administrator as Admin
+actor Receptionist as Reception
+actor SNSUser as User
+actor Nurse
+
+Admin --> SpecifyNewVaccineType
+Admin --> RegisterVaccine
+Admin --> GetListAllVaccines
+Admin --> RegisterVaccinationCenter
+Admin --> RegisterEmployee
+Admin --> GetListEmployeesByRole
+
+Reception --> RegisterSNSUser
+Reception --> ScheduleVaccination
+Reception --> RegisterArrivalSNSUser
+
+User --> ScheduleVaccinationSNSUser
+
+Nurse --> ConsultUsersInWaitingRoom
+Nurse --> RecordVaccineAdministration
+
+left to right direction
+Admin --|> Reception
+Reception --|> User
+Admin --|> Nurse
+
+@enduml

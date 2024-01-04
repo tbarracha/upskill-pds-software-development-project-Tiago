@@ -1,0 +1,27 @@
+@startuml
+actor Receptionist as Reception
+
+Reception -> System: Schedule Vaccination
+activate System
+
+System -> System: Display Schedule Form
+alt Form displayed
+    Reception -> System: Enter Vaccination Details\n(User, Date, Time, Vaccine Type)
+    alt All details entered
+        System -> System: Validate Details
+        alt Details valid
+            System -> Database: Save Vaccination Schedule
+            Database --> System: Confirmation Message
+            System --> Reception: Success Message
+        else Details invalid
+            System --> Reception: Error Message\n(Invalid Details)
+        end
+    else Not all details entered
+        System --> Reception: Error Message\n(Missing Details)
+    end
+else Form not displayed
+    System --> Reception: Error Message\n(Failed to Display Form)
+end
+
+deactivate System
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+actor Nurse
+
+Nurse -> System: Consult Users in Waiting Room
+activate System
+
+System -> System: Retrieve List of Users in Waiting Room
+Database --> System: List of Users
+System --> Nurse: Display List of Users
+
+deactivate System
+@enduml

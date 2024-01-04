@@ -1,0 +1,39 @@
+@startuml
+actor Administrator as Admin
+
+Admin -> System: Register Vaccine
+activate System
+
+System -> System: Display Form for Vaccine Registration
+alt Form displayed
+    Admin -> System: Enter Vaccine Details\n(Name, Brand, Vaccine Type)
+    alt All details entered
+        System -> System: Validate Vaccine Type\n(From a list)
+        alt Vaccine Type valid
+            System -> System: Validate Name and Brand\n(No special characters)
+            alt Name and Brand valid
+                System -> System: Generate Sequential Id\n(Starts at 1)
+                System --> Admin: Display Generated Id
+                Admin -> System: Confirm Registration
+                alt Registration confirmed
+                    System -> Database: Save Vaccine Details
+                    Database --> System: Confirmation Message
+                    System --> Admin: Success Message
+                else Registration not confirmed
+                    System --> Admin: Registration Canceled
+                end
+            else Name or Brand invalid
+                System --> Admin: Error Message\n(Invalid Name or Brand)
+            end
+        else Vaccine Type invalid
+            System --> Admin: Error Message\n(Invalid Vaccine Type)
+        end
+    else Not all details entered
+        System --> Admin: Error Message\n(Missing Details)
+    end
+else Form not displayed
+    System --> Admin: Error Message\n(Failed to Display Form)
+end
+
+deactivate System
+@enduml

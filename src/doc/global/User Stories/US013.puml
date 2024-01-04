@@ -1,0 +1,27 @@
+@startuml
+actor Administrator as Admin
+
+Admin -> System: Register Vaccination Center
+activate System
+
+System -> System: Display Form for Vaccination Center Registration
+alt Form displayed
+    Admin -> System: Enter Center Details\n(Name, Location, Capacity, etc.)
+    alt All details entered
+        System -> System: Validate Details
+        alt Details valid
+            System -> Database: Save Vaccination Center Details
+            Database --> System: Confirmation Message
+            System --> Admin: Success Message
+        else Details invalid
+            System --> Admin: Error Message\n(Invalid Details)
+        end
+    else Not all details entered
+        System --> Admin: Error Message\n(Missing Details)
+    end
+else Form not displayed
+    System --> Admin: Error Message\n(Failed to Display Form)
+end
+
+deactivate System
+@enduml

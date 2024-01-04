@@ -1,0 +1,22 @@
+# Glossary
+
+**Terms, Expressions and Acronyms (TEA) must be organized alphabetically.**
+
+| **_TEA_** (EN)          | **_Description_** (EN)                                                                                                                                                                                   |                                       
+|:------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Admin**               | Refers to the person controlling the system                                                                                                                                                              |
+| **Brand**               | Refers to the maker/provider of the vaccine                                                                                                                                                              |
+| **Citizen Card Number** | Refers to the Portuguese citizenship identification card number                                                                                                                                          |
+| **Employee**            | Refers to a person that works in the vaccination center, managed by the admin                                                                                                                            |
+| **Employee Role**       | Refers to the role specification of employees                                                                                                                                                            |
+| **Nurse**               | Person that completes the vaccination process for the patient. Is an employee                                                                                                                            |
+| **Receptionist**        | Person that will be receiving and registering SNSUsers and registers the vaccination schedules. Is an employee                                                                                           |
+| **SNS**                 | Portuguese health entity: Serviço Nacional de Saúde                                                                                                                                                      |
+| **SNS Number**          | SNS user identification number                                                                                                                                                                           |
+| **SNS User**            | Refers to the person requesting the vaccine scheduling                                                                                                                                                   |
+| **Vaccination Center**  | Place where the vaccination is registered and completed                                                                                                                                                  |
+| **Vaccination Code**    | Refers to the vaccine code. Is composed of 5 alphanumeric characters, unique for each VaccineType                                                                                                        |
+| **Vaccination Tech**    | Refers to the vaccine technology based on the following 6 types: [Understanding Six Types of Vaccine Technologies](https://www.pfizer.com/news/articles/understanding_six_types_of_vaccine_technologies) |
+| **Vaccine**             | Object to be administered during the vaccination process                                                                                                                                                 |
+| **Vaccine Type**        | Refers to the disease the vaccine is treating                                                                                                                                                            |
+| **Waiting Room**        | Place where SNSUsers wait to be called to be vaccinated                                                                                                                                                  |
