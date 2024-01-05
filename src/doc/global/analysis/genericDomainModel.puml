@@ -1,0 +1,104 @@
+@startuml
+
+title Generic Domain Model v1
+
+class Administrator {
+  +manages(o) : Vaccine
+  +manages(o) : Employee
+  +registers(o) : VaccinationCenter
+}
+
+class Employee {
+  +Id : Numeric
+  +Name : String
+  +Role : String
+}
+
+class Receptionist <<Employee>> {
+  +performs(o) : VaccineRegistration
+  +performs(o) : SNSUserRegistration
+  +performs(o) : VaccinationScheduling
+  +performs(o) : SNSUserArrivalRegistration
+}
+
+class Nurse <<Employee>> {
+  +conducts(o) : UserConsultation
+  +records(o) : VaccineAdministration
+  +checks(o) : WaitingRoom
+}
+
+class Vaccine {
+  +Id : Numeric
+  +Name : String
+  +Brand : String
+  +VaccineType : String
+}
+
+class VaccinationCenter {
+  +contains(o) : UserConsultation
+}
+
+class UserConsultation {
+  +DateTime : DateTime
+}
+
+class Nurse {
+  +conducts(o) : UserConsultation
+  +records(o) : VaccineAdministration
+  +checks(o) : WaitingRoom
+}
+
+class VaccineAdministration {
+  +DateTime : DateTime
+}
+
+class SNSUser {
+  +isRelatedWithATransactionOf(o) : VaccineAdministration
+  +intendsTo(o) : VaccinationScheduling
+  +isAddedTo(o) : WaitingRoom
+}
+
+class VaccineRegistration {
+  +registers(o) : Vaccine
+}
+
+class SNSUserRegistration {
+  +registers(o) : SNSUser
+}
+
+class VaccinationScheduling {
+  +schedules(o) : Vaccination
+}
+
+class SNSUserArrivalRegistration {
+  +registers(o) : UserArrival
+}
+
+class Vaccination {
+  +DateTime : DateTime
+}
+
+class UserArrival {
+  +DateTime : DateTime
+}
+
+class WaitingRoom {
+  +contains(o) : SNSUser
+}
+
+Administrator --> "manages" Vaccine
+Administrator --> "manages" Employee
+Administrator --> "registers" VaccinationCenter
+Receptionist --> "performs" VaccineRegistration
+Receptionist --> "performs" SNSUserRegistration
+Receptionist --> "performs" VaccinationScheduling
+Receptionist --> "performs" SNSUserArrivalRegistration
+VaccinationCenter --> "contains" UserConsultation
+Nurse --> "conducts" UserConsultation
+Nurse --> "records" VaccineAdministration
+Nurse --> "checks" WaitingRoom
+SNSUser --> "isRelatedWithATransactionOf" VaccineAdministration
+SNSUser --> "intendsTo" Vaccination
+SNSUser --> "isAddedTo" WaitingRoom
+'SNSUser --> "has" UserArrival
+@enduml

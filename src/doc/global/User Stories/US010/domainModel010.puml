@@ -1,0 +1,17 @@
+@startuml
+
+title Domain Model US010
+
+class Administrator {
+  +manages(o) : VaccineType
+}
+
+class VaccineType {
+  +Code : String
+  +ShortDescription : String
+  +VaccineTechnology : String
+}
+
+Administrator --> "creates" VaccineType
+
+@enduml

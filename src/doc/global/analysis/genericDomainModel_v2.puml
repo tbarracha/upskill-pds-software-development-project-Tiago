@@ -1,0 +1,112 @@
+@startuml
+
+title Generic Domain Model v2
+
+class Administrator {
+  +manages(o) : VaccinationCenter
+  +manages(o) : SNSUser
+  +manages(o) : Receptionist
+  +manages(o) : Nurse
+}
+
+class VaccinationCenter {
+  +Name : String
+  +Address : String
+  +PhoneNumber : String
+  +EmailAddress : String
+  +FaxNumber : String
+  +WebsiteAddress : String
+  +OpeningHours : String
+  +ClosingHours : String
+  +MaxVaccinesPerHour : Integer
+  +contains(o) : UserConsultation
+}
+
+class UserConsultation {
+  +DateTime : DateTime
+}
+
+class SNSUser {
+  +SNSUserNumber : String
+  +Name : String
+  +BirthDate : Date
+  +Sex : String
+  +PostalAddress : String
+  +PhoneNumber : String
+  +EmailAddress : String
+  +CitizenCardNumber : String
+  +intendsTo(o) : Vaccination
+  +isAddedTo(o) : WaitingRoom
+  +isRelatedWithATransactionOf(o) : VaccineAdministration
+}
+
+class Vaccination {
+  +DateTime : DateTime
+  +VaccineType : String
+  +VaccineName : String
+  +LotNumber : String
+}
+
+class VaccineAdministration {
+  +DateTime : DateTime
+  +NurseComments : String
+  +isRelatedWithATransactionOf(o) : SNSUser
+}
+
+class WaitingRoom {
+  +contains(o) : SNSUser
+}
+
+class Receptionist {
+  +Name : String
+  +performs(o) : VaccineRegistration
+  +performs(o) : SNSUserRegistration
+  +performs(o) : VaccinationScheduling
+  +performs(o) : SNSUserArrivalRegistration
+}
+
+class VaccineRegistration {
+  +DateTime : DateTime
+}
+
+class SNSUserRegistration {
+  +DateTime : DateTime
+}
+
+class VaccinationScheduling {
+  +DateTime : DateTime
+  +schedules(o) : Vaccination
+}
+
+class SNSUserArrivalRegistration {
+  +DateTime : DateTime
+}
+
+class Nurse {
+  +Name : String
+  +conducts(o) : UserConsultation
+  +records(o) : VaccineAdministration
+  +checks(o) : WaitingRoom
+}
+
+Administrator --> "registers" VaccinationCenter
+Administrator --> "manages" SNSUser
+Administrator --> "manages" Receptionist
+Administrator --> "manages" Nurse
+
+Receptionist --> "performs" VaccineRegistration
+Receptionist --> "performs" SNSUserRegistration
+Receptionist --> "performs" VaccinationScheduling
+Receptionist --> "performs" SNSUserArrivalRegistration
+
+VaccinationCenter --> "contains" UserConsultation
+
+Nurse --> "conducts" UserConsultation
+Nurse --> "records" VaccineAdministration
+Nurse --> "checks" WaitingRoom
+
+SNSUser --> "intendsTo" Vaccination
+SNSUser --> "isAddedTo" WaitingRoom
+SNSUser --> "isRelatedWithATransactionOf" VaccineAdministration
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+title Domain Model US015
+
+class Administrator {
+  +getsListOf(o) : Employee
+}
+
+class Employee {
+  +FunctionRole : String
+}
+
+Administrator --> "gets list of" Employee
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+
+title Domain Model US014
+
+class Administrator {
+  +manages(o) : Employee
+}
+
+class Employee {
+  +Name : String
+  +Role : String
+}
+
+Administrator --> "manages" Employee
+
+@enduml

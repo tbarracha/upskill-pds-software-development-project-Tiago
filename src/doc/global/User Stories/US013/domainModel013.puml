@@ -1,0 +1,16 @@
+@startuml
+title Domain Model US013
+
+class Administrator {
+  +manages(o) : VaccinationCenter
+}
+
+class VaccinationCenter {
+  +Name : String
+  +LocationDetails : String
+  +ResponseToPandemic : String
+}
+
+Administrator --> "manages" VaccinationCenter
+
+@enduml

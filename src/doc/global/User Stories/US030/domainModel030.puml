@@ -1,0 +1,15 @@
+@startuml
+
+title Domain Model US030
+
+class SNSUser {
+  +schedules(o) : VaccinationScheduling
+}
+
+class VaccinationScheduling {
+  +DesiredVaccinationDateTime : DateTime
+}
+
+SNSUser --> "schedules" VaccinationScheduling
+
+@enduml

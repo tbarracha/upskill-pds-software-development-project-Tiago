@@ -1,0 +1,25 @@
+@startuml
+
+title Domain Model US041
+
+class Nurse {
+  +records(o) : VaccineAdministration
+}
+
+class Vaccine {
+  +isOf(o) : VaccineAdministration
+}
+
+class SNSUser {
+  +isRelatedWithATransactionOf(o) : VaccineAdministration
+}
+
+class VaccineAdministration {
+  +DateTime : DateTime
+}
+
+Nurse --> "records" VaccineAdministration
+Vaccine --> "is of" VaccineAdministration
+SNSUser --> "is related with a transaction of" VaccineAdministration
+
+@enduml

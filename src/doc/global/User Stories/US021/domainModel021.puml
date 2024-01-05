@@ -1,0 +1,15 @@
+@startuml
+
+title Domain Model US021
+
+class Receptionist {
+  +schedules(o) : VaccinationSchedule
+}
+
+class VaccinationSchedule {
+  +ScheduleDate : DateTime
+}
+
+Receptionist --> "schedules" VaccinationSchedule
+
+@enduml

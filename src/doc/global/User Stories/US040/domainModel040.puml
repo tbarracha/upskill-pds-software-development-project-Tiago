@@ -1,0 +1,20 @@
+@startuml
+
+title Domain Model US040
+
+class Nurse {
+  +conducts(o) : UserConsultation
+}
+
+class VaccinationCenter {
+  +contains(o) : UserConsultation
+}
+
+class UserConsultation {
+  +DateTime : DateTime
+}
+
+Nurse --> "conducts" UserConsultation
+VaccinationCenter --> "contains" UserConsultation
+
+@enduml

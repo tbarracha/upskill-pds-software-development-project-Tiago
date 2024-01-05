@@ -1,0 +1,15 @@
+@startuml
+
+title Domain Model US022
+
+class Receptionist {
+  +registers(o) : SNSUserArrival
+}
+
+class SNSUserArrival {
+  +ArrivalDateTime : DateTime
+}
+
+Receptionist --> "registers" SNSUserArrival
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+
+title Domain Model US020
+
+class Receptionist {
+  +registers(o) : SNSUser
+}
+
+class SNSUser {
+  +Name : String
+  +BirthDate : Date
+  +Sex : String (optional)
+  +PostalAddress : String
+  +PhoneNumber : String
+  +EmailAddress : String
+  +CitizenCardNumber : String
+  +SNSUserNumber : String
+}
+
+Receptionist --> "registers" SNSUser
+
+@enduml
