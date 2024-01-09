@@ -89,14 +89,18 @@ class WaitingRoom {
 Administrator --> "manages" Vaccine
 Administrator --> "manages" Employee
 Administrator --> "registers" VaccinationCenter
+
 Receptionist --> "performs" VaccineRegistration
 Receptionist --> "performs" SNSUserRegistration
 Receptionist --> "performs" VaccinationScheduling
 Receptionist --> "performs" SNSUserArrivalRegistration
+
 VaccinationCenter --> "contains" UserConsultation
+
 Nurse --> "conducts" UserConsultation
 Nurse --> "records" VaccineAdministration
 Nurse --> "checks" WaitingRoom
+
 SNSUser --> "isRelatedWithATransactionOf" VaccineAdministration
 SNSUser --> "intendsTo" Vaccination
 SNSUser --> "isAddedTo" WaitingRoom
