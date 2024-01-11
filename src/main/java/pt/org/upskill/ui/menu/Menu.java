@@ -2,6 +2,9 @@ package pt.org.upskill.ui.menu;
 
 import pt.org.upskill.auth.User;
 import pt.org.upskill.domain.Role;
+import pt.org.upskill.repository.Repositories;
+import pt.org.upskill.repository.Repository;
+import pt.org.upskill.repository.RoleRepository;
 import pt.org.upskill.session.Context;
 import pt.org.upskill.ui.UI;
 
@@ -29,6 +32,8 @@ public class Menu {
         if (this.parentMenu != null) {
             this.parentMenu.addMenuItem(this);
         }
+
+        addPermission(Repositories.getInstance().roleRepository().getRoleByName(RoleRepository.ROLE_MASTER_ADMIN));
     }
 
     private void addMenuItem(Menu item) {
@@ -53,6 +58,11 @@ public class Menu {
 
     public void addPermission(Role role) {
         menuPermissions.add(new Permission(role));
+    }
+    public void addPermission(Role... roles) {
+        for (int i = 0; i < roles.length; i++) {
+            menuPermissions.add(new Permission(roles[i]));
+        }
     }
 
     public int option() {

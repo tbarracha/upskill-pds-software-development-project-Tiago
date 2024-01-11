@@ -3,33 +3,43 @@ package pt.org.upskill.repository;
 import pt.org.upskill.auth.User;
 import pt.org.upskill.domain.Role;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class RoleRepository {
+public class RoleRepository extends Repository<Role> {
+    public static final String ROLE_MASTER_ADMIN = "MASTER ADMIN";
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_NURSE = "NURSE";
     public static final String ROLE_SNSUSER = "SNSUSER";
     public static final String ROLE_RECEPTIONIST = "RECEPTIONIST";
 
-    private static final List<Role> roles = new ArrayList<>();
+    private Role masterAdmin;
 
-    public boolean add(Role role) {
-        try {
-            roles.add(role);
-            return true;
-        } catch (Exception e) {
-            return false;
+    public Role createRole(User user, String roleName) {
+        if (isAdmin(user) == false) {
+            return null;
         }
+
+        return new Role(roleName);
     }
 
-    public Role roleByName(String name) {
-        for (Role role : roles) {
-            if (role.name() == name) {
+    public void setMasterAdmin() {
+        if (masterAdmin != null)
+            return;
+
+        masterAdmin = new Role(ROLE_MASTER_ADMIN);
+        addToRepository(masterAdmin);
+    }
+
+    private boolean isAdmin(User user) {
+        return user.hasRole(getRoleByName(ROLE_ADMIN)) || user.hasRole(getRoleByName(ROLE_MASTER_ADMIN));
+    }
+
+    public Role getRoleByName(String name) {
+        for (Role role : contentList) {
+            if (name.equalsIgnoreCase(role.name())) {
                 return role;
-            };
+            }
         }
+
         return null;
     }
 }

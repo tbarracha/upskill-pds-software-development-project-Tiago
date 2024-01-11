@@ -2,7 +2,7 @@ package pt.org.upskill.ui;
 
 import java.util.Scanner;
 
-public class UI implements Runnable{
+public class UI implements Runnable {
     protected Scanner input = new Scanner(System.in);
 
     public void  printTitle(String title) {
@@ -11,5 +11,5 @@ public class UI implements Runnable{
         System.out.println("-----------");
     }
 
-    public void run() { };
+    public void run() { }
 }

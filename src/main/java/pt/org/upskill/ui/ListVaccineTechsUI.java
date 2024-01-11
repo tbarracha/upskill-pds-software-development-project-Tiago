@@ -10,15 +10,8 @@ public class ListVaccineTechsUI extends UI {
     private final VaccineTechController vaccineTechController = new VaccineTechController();
 
     public void run() {
-        System.out.println("");
-        System.out.println("LIST VACCINE TECHNOLOGIES");
-        System.out.println("-----------");
-
         try {
-            List<VaccineTech> vaccineTechList = vaccineTechController.vaccineTechList();
-            for (VaccineTech vaccineTech : vaccineTechList) {
-                System.out.println(vaccineTech.id() + " - " + vaccineTech.name() + " - " + vaccineTech.description());
-            }
+            vaccineTechController.listRepositoryOptions("LIST VACCINE TECHNOLOGIES", true);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

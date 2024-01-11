@@ -1,0 +1,65 @@
+TODO:
+--------
+
+// ADMIN
+US012 - As administrator, I want to get a list of all vaccines. [Priority: High]
+    AC012-01: The vaccines should be grouped by type and then listed alphabetically by name.
+
+US013 - As administrator, I want to register a vaccination center to respond to a certain pandemic. [Priority: Medium]
+
+US014 - As administrator, I want to register an employee. [Priority: Low]
+
+US015 - As administrator, I want to get a list of employees with a given function/role. [Priority: Medium]
+
+
+
+// RECEPTIONIST
+US020 - As receptionist, I want to register a SNS user. [Priority: High]
+    AC020-01: The attributes that should be used to describe a SNS user are: Name, Birth Date, Sex, Postal Address, Phone Number, E-mail Address, Citizen Card Number and SNS User Number. The Sex attribute is optional. All other fields are required.
+    AC020-02: The Phone Number and the Citizen Card Number must have a “portuguese format”.
+    AC020-03: The Phone Number, E-mail Address, Citizen Card Number and SNS User Number should be unique for each SNS user.
+
+US021 - As receptionist, I want to schedule a vaccination. [Priority: Low]
+
+US022 - As receptionist, I want to register the arrival of a SNS user to take the vaccine. [Priority: Low]
+
+
+
+// USER
+US030 - As SNS user, I intend to use the application to schedule a vaccination. [Priority: Medium]
+
+
+
+// NURSE
+US040 - As nurse, I intend to consult the users in the waiting room of a vaccination center. [Priority: Low]
+
+US041 - As nurse, I want to record the administration of a vaccine to a SNS user. [Priority: Low]
+
+
+
+DONE:
+--------
+// ADMIN
+US010 - As administrator, I intend to specify a new vaccine type. [Priority: High]
+    AC010-01: The Vaccine Type should have: Code, Short Description and Vaccine Technology.
+    AC010-02: The Code must consist of five alphanumeric characters.
+    AC010-03: The Vaccine Technology must be one of six types obtained from: https://www.pfizer.com/news/articles/understanding_six_types_of_vaccine_technologies
+    AC010-04: The Code must be unique for each Vaccine Type.
+
+US011 - As administrator, I want to register a vaccine. [Priority: High]
+    AC011-01: The attributes that should be used to describe a Vaccine are: Id (automatic), Name, Brand and Vaccine Type.
+    AC011-02: The Vaccine Type must be selected from a list displayed to the user.
+    AC011-03: The attributes Name and Brand must not have special characters.
+    AC011-04: The Id is a numeric code that starts at 1 and is generated sequentially.
+
+
+
+// RECEPTIONIST
+
+
+
+// USER
+
+
+
+// NURSE

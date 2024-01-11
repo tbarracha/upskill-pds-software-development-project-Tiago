@@ -8,9 +8,7 @@ public class RegisterVaccineTechUI extends UI {
     private final VaccineTechController vaccineTechController = new VaccineTechController();
 
     public void run() {
-        System.out.println("");
-        System.out.println("CREATE VACCINE TECHNOLOGY");
-        System.out.println("-----------");
+        printTitle("CREATE VACCINE TECHNOLOGY");
 
         try {
             String name = readLineFromConsole("Vaccine Technology Name: ");

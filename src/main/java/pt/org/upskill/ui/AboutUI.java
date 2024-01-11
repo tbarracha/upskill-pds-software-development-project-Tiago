@@ -3,6 +3,7 @@ package pt.org.upskill.ui;
 public class AboutUI extends UI {
 
     public AboutUI() {
+
     }
 
     public void run() {

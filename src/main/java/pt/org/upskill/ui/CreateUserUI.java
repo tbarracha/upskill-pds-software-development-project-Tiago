@@ -10,10 +10,12 @@ public class CreateUserUI extends UI {
     private final UserController userController = new UserController();
     private final RoleController roleController = new RoleController();
 
+    public CreateUserUI() {
+
+    }
+
     public void run() {
-        System.out.println("");
-        System.out.println("CREATE USER");
-        System.out.println("-----------");
+        printTitle("CREATE USER");
 
         try {
             //Requests data (reference, ..., cost)

@@ -4,9 +4,12 @@ import pt.org.upskill.auth.Email;
 import pt.org.upskill.auth.Password;
 import pt.org.upskill.auth.User;
 import pt.org.upskill.domain.Role;
+import pt.org.upskill.repository.Repositories;
+import pt.org.upskill.repository.UserRepository;
+
 import java.util.List;
 
-public class UserController {
+public class UserController extends Controller<User, UserRepository> {
     /*
     public List<KeyValueDTO<String>> userList() {
         UserRepository repo = Repositories.getInstance().userRepository();
@@ -25,6 +28,16 @@ public class UserController {
             return false;
         }
     }
+    */
 
-     */
+    @Override
+    public void generateContentModels() {
+        if (areContentModelsCreated())
+            return;
+    }
+
+    @Override
+    protected void setRepository() {
+        repository = Repositories.getInstance().userRepository();
+    }
 }

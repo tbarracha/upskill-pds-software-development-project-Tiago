@@ -13,9 +13,7 @@ public class LoginUI extends UI {
     private String password;
 
     public void run() {
-        System.out.println("");
-        System.out.println("LOG IN");
-        System.out.println("------");
+        printTitle("LOG IN");
 
         String email = readLineFromConsole("Email: ");
         String password = readLineFromConsole("Password: ");

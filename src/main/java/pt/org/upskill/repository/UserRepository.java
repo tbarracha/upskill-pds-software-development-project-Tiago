@@ -1,29 +1,19 @@
 package pt.org.upskill.repository;
 
 import pt.org.upskill.auth.Email;
+import pt.org.upskill.auth.Password;
 import pt.org.upskill.auth.User;
+import pt.org.upskill.domain.Role;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class UserRepository {
-    private static final List<User> users = new ArrayList<>();
-
-    public boolean add(User user) {
-        try {
-            users.add(user);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+public class UserRepository extends Repository<User> {
 
     public User userByEmail(String address) throws Exception {
-        for (User user : users) {
+        for (User user : contentList) {
             if (user.email().address().equals(address)) {
                 return user;
-            };
+            }
         }
+
         return null;
     }
 }

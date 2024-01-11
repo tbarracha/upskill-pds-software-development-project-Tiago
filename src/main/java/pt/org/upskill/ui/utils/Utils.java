@@ -14,6 +14,12 @@ import java.util.logging.Logger;
  */
 public class Utils {
 
+    static public void printTitle(String title) {
+        System.out.println();
+        System.out.println(title.toUpperCase());
+        System.out.println("---");
+    }
+
     static public String readLineFromConsole(String prompt) {
         try {
             System.out.print(prompt);
@@ -91,6 +97,7 @@ public class Utils {
         return selectsIndex(list);
     }
 
+
     static public void showList(List list, String header) {
         System.out.println(header);
 
@@ -98,7 +105,7 @@ public class Utils {
         for (Object o : list) {
             index++;
 
-            System.out.println(index + " - " + o.toString());
+            System.out.println(String.format("%d - %s", index, o.toString()));
         }
         System.out.println("0 - Cancel");
     }

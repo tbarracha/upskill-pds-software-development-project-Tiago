@@ -3,25 +3,51 @@ package pt.org.upskill.domain;
 import pt.org.upskill.repository.Repositories;
 import pt.org.upskill.repository.VaccineTechRepository;
 
-public class VaccineTech {
+import java.util.Objects;
+
+public class VaccineTech extends Describable implements IOption {
     private int id;
-    private String name;
-    private String description;
 
     public VaccineTech(String name, String description) {
-        VaccineTechRepository vaccineTechRepository = Repositories.getInstance().vaccineTechRepository();
-        this.id = vaccineTechRepository.nextId();
-        this.name = name;
-        this.description = description;
+        super(name, description);
+        this.id = Repositories.getInstance().vaccineTechRepository().nextId();
     }
 
-    public int id() {
+    public int getId() {
         return id;
     }
 
-    public String name() {
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("VaccineTech{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public String getOptionDetails() {
+        //return String.format("%s", name);
         return name;
     }
 
-    public String description() { return description; }
+    @Override
+    public VaccineTech getOptionType() {
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        VaccineTech that = (VaccineTech) object;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description);
+    }
 }

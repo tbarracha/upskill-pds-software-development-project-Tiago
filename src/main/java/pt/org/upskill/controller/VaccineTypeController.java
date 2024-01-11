@@ -1,5 +1,8 @@
 package pt.org.upskill.controller;
 
+import TiWorks.TiUtils;
+import pt.org.upskill.domain.IOption;
+import pt.org.upskill.domain.VaccineCode;
 import pt.org.upskill.domain.VaccineTech;
 import pt.org.upskill.domain.VaccineType;
 
@@ -7,25 +10,35 @@ import pt.org.upskill.repository.Repositories;
 import pt.org.upskill.repository.VaccineTechRepository;
 import pt.org.upskill.repository.VaccineTypeRepository;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
 
-public class VaccineTypeController {
-    VaccineTypeRepository vaccineTypeRepository = Repositories.getInstance().vaccineTypeRepository();
-    private VaccineType vaccineType;
-
-    public void createVaccineType(String code, String shortDescription, int vaccineTechId) {
+public class VaccineTypeController extends Controller<VaccineType, VaccineTypeRepository> {
+    public void createVaccineType(VaccineCode code, String shortDescription, int vaccineTechId) {
         VaccineTechRepository vaccineTechRepository = Repositories.getInstance().vaccineTechRepository();
         VaccineTech vaccineTech = vaccineTechRepository.getById(vaccineTechId);
 
-        this.vaccineType = vaccineTypeRepository.createVaccineType(code, shortDescription, vaccineTech);
+        repositoryItem = repository.createVaccineType(code, shortDescription, vaccineTech);
     }
 
-    public List<VaccineType> vaccineTypeList() {
-        return vaccineTypeRepository.vaccineTypeList();
+    @Override
+    public void generateContentModels() {
+        if (areContentModelsCreated())
+            return;
+
+        ArrayList<VaccineTech> vaccineTechList = Repositories.getInstance().vaccineTechRepository().getContentList();
+        ArrayList<VaccineCode> vaccineCodes = Repositories.getInstance().vaccineCodeRepository().getContentList();
+
+        for (int i = repository.size(); i < vaccineCodes.size(); i++) {
+            VaccineCode code = vaccineCodes.get(i);
+            String description = String.format("Description of Vaccine Type: %s", code);
+
+            repository.addToRepository(new VaccineType(code, description, TiUtils.Randomizer.getRandomFromList(vaccineTechList)));
+        }
     }
 
-    public boolean confirm() {
-        vaccineTypeRepository.save(vaccineType);
-        return true;
+    @Override
+    protected void setRepository() {
+        repository = Repositories.getInstance().vaccineTypeRepository();
     }
 }

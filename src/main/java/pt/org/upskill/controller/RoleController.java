@@ -1,11 +1,13 @@
 package pt.org.upskill.controller;
 
 import pt.org.upskill.domain.Role;
+import pt.org.upskill.repository.Repositories;
+import pt.org.upskill.repository.RoleRepository;
 
 import java.util.List;
 
-public class RoleController {
-/*
+public class RoleController extends Controller<Role, RoleRepository> {
+    /*
     public boolean createRole(RoleDTO roleDTO) {
         RoleRepository repo = Repositories.getInstance().roleRepository();
         try {
@@ -16,6 +18,16 @@ public class RoleController {
             return false;
         }
     }
+    */
 
- */
+    @Override
+    public void generateContentModels() {
+        if (areContentModelsCreated())
+            return;
+    }
+
+    @Override
+    protected void setRepository() {
+        repository = Repositories.getInstance().roleRepository();
+    }
 }

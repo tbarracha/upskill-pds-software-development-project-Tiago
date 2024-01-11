@@ -1,6 +1,6 @@
 package pt.org.upskill.repository;
 
-public interface Persistable {
-    boolean save(Object object);
-    boolean delete(Object object);
+public interface Persistable<T> {
+    boolean save(T object);
+    boolean delete(T object);
 }

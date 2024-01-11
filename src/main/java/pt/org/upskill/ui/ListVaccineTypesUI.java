@@ -13,16 +13,8 @@ public class ListVaccineTypesUI extends UI {
     private final VaccineTechController vaccineTechController = new VaccineTechController();
 
     public void run() {
-        System.out.println("");
-        System.out.println("LIST VACCINE TYPES");
-        System.out.println("-----------");
-
         try {
-            List<VaccineType> vaccineTypeList = vaccineTypeController.vaccineTypeList();
-            for (VaccineType vaccineType : vaccineTypeList) {
-                String vaccineTechName = vaccineTechController.getVaccineTechName(vaccineType.vaccineTech().id());
-                System.out.println(vaccineType.code() + " - " + vaccineType.shortDescription() + " - " + vaccineTechName);
-            }
+            vaccineTypeController.listRepositoryOptions("LIST VACCINE TYPES", true);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -12,9 +12,7 @@ public class LogoutUI extends UI {
     private String password;
 
     public void run() {
-        System.out.println("");
-        System.out.println("LOG OUT");
-        System.out.println("-------");
+        printTitle("LOG OUT");
 
         if (Context.getInstance().session() == null) {
             System.out.print("Not logged in...");

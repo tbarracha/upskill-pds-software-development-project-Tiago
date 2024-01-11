@@ -3,15 +3,15 @@ package pt.org.upskill.auth;
 public class Email {
     private String address;
 
-    public Email(String address) throws Exception {
-        if (!validate(address)) {
-            throw new Exception("Invalid email address: " + address);
+    public Email(String address, boolean ignoreValidation) throws Exception {
+        if (ignoreValidation == false && validate(address) == false) {
+            throw new Exception(String.format("Invalid email address: %s", address));
         }
+
         this.address = address;
     }
 
-    protected Email() {
-    }
+    public Email() {}
 
     private boolean validate(String email) {
         return email.contains("@");

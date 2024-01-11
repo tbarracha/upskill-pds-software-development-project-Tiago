@@ -2,6 +2,8 @@ package pt.org.upskill.domain;
 
 import pt.org.upskill.auth.Email;
 
+import java.util.Objects;
+
 public class Employee {
     private final Email email;
     private String name;
@@ -34,5 +36,21 @@ public class Employee {
 
     public boolean hasEmail(String email) {
         return this.email.address().equals(email);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Employee{");
+        sb.append("email=").append(email);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", position='").append(position).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, name, position, phone);
     }
 }
