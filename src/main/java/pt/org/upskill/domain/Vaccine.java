@@ -76,6 +76,7 @@ public class Vaccine implements Serializable, IOption {
     @Override
     public String getOptionDetails() {
         return String.format("ID: %d, %s-%s, Tech: %s, Brand: %s", id, name, vaccineType.getCodeString(), vaccineType.getVaccineTech().getName(), brand.getName());
+        //return String.format("%s-%s, ID: %d, Tech: %s, Brand: %s", name, vaccineType.getCodeString(), id, vaccineType.getVaccineTech().getName(), brand.getName());
     }
 
     @Override

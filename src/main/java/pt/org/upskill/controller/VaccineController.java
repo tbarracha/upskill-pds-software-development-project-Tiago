@@ -9,6 +9,12 @@ import pt.org.upskill.repository.*;
 
 public class VaccineController extends Controller<Vaccine, VaccineRepository> {
 
+    public VaccineController() {
+        setRepository();
+        repositoryOutputer = new VaccineRepositoryOutputer(repository);
+        generateContentModels();
+    }
+
     public void createVaccine(String name, Brand brand, VaccineType vaccineType) {
         repositoryItem = repository.createVaccine(name, brand, vaccineType);
         EventController.OnVaccineCreated.invoke(repositoryItem);

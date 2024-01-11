@@ -5,10 +5,7 @@ import pt.org.upskill.domain.Vaccine;
 import pt.org.upskill.domain.VaccineCode;
 import pt.org.upskill.domain.VaccineType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class VaccineRepositoryOutputer extends RepositoryOutputer<Vaccine> {
 
@@ -19,25 +16,32 @@ public class VaccineRepositoryOutputer extends RepositoryOutputer<Vaccine> {
     @Override
     public void listOptionTypes() {
         List<Vaccine> vaccines = repository.getContentList();
-        List<Vaccine> sorted = new ArrayList<>();
+        LinkedHashMap<VaccineCode, List<Vaccine>> sortedHasMap = new LinkedHashMap<>();
 
         List<VaccineCode> codes = Repositories.getInstance().vaccineCodeRepository().getContentList();
         Collections.sort(codes, Comparator.comparing(VaccineCode::getCodeString));
 
         for (int i = 0; i < codes.size(); i++) {
 
+            VaccineCode code = codes.get(i);
+            sortedHasMap.put(code, new ArrayList<>());
+
             for (int j = 0; j < vaccines.size(); j++) {
                 Vaccine vaccine = vaccines.get(j);
 
                 if (vaccine.getVaccineTypeCodeString().equals(codes.get(i).getCodeString())) {
-                    sorted.add(vaccine);
+                    sortedHasMap.get(code).add(vaccine);
                 }
             }
         }
 
         // Display the sorted list
-        for (Vaccine vaccine : sorted) {
-            System.out.println(vaccine.getOptionDetails());
+        int index = 0;
+        for (Map.Entry<VaccineCode, List<Vaccine>> entry : sortedHasMap.entrySet()) {
+            for (Vaccine vaccine : entry.getValue()) {
+                System.out.println(String.format("%d - %s", index, vaccine.getOptionDetails()));
+                index++;
+            }
         }
     }
 
