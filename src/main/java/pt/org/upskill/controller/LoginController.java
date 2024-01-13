@@ -1,7 +1,6 @@
 package pt.org.upskill.controller;
 
 import pt.org.upskill.auth.User;
-import pt.org.upskill.domain.VaccineTech;
 import pt.org.upskill.repository.Repositories;
 import pt.org.upskill.repository.UserRepository;
 import pt.org.upskill.session.Context;
@@ -11,7 +10,7 @@ public class LoginController extends Controller<User, UserRepository> {
     //private final ApplicationSession applicationSession;
 
     public boolean logIn(String email, String  password) throws Exception {
-        User user =  repository.userByEmail(email);
+        User user =  repository.getUserByEmail(email);
         if  ((user != null) && (user.hasPassword(password))) {
             Session session = new Session(user);
             Context.getInstance().setSession(session);
@@ -36,6 +35,6 @@ public class LoginController extends Controller<User, UserRepository> {
 
     @Override
     protected void setRepository() {
-        repository = Repositories.getInstance().userRepository();
+        repository = Repositories.getInstance().getUserRepository();
     }
 }

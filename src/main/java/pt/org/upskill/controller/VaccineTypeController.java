@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class VaccineTypeController extends Controller<VaccineType, VaccineTypeRepository> {
     public void createVaccineType(VaccineCode code, String shortDescription, int vaccineTechId) {
-        VaccineTechRepository vaccineTechRepository = Repositories.getInstance().vaccineTechRepository();
+        VaccineTechRepository vaccineTechRepository = Repositories.getInstance().getVaccineTechRepository();
         VaccineTech vaccineTech = vaccineTechRepository.getById(vaccineTechId);
 
         repositoryItem = repository.createVaccineType(code, shortDescription, vaccineTech);
@@ -26,8 +26,8 @@ public class VaccineTypeController extends Controller<VaccineType, VaccineTypeRe
         if (areContentModelsCreated())
             return;
 
-        ArrayList<VaccineTech> vaccineTechList = Repositories.getInstance().vaccineTechRepository().getContentList();
-        ArrayList<VaccineCode> vaccineCodes = Repositories.getInstance().vaccineCodeRepository().getContentList();
+        ArrayList<VaccineTech> vaccineTechList = Repositories.getInstance().getVaccineTechRepository().getContentList();
+        ArrayList<VaccineCode> vaccineCodes = Repositories.getInstance().getVaccineCodeRepository().getContentList();
 
         for (int i = repository.size(); i < vaccineCodes.size(); i++) {
             VaccineCode code = vaccineCodes.get(i);
@@ -39,6 +39,6 @@ public class VaccineTypeController extends Controller<VaccineType, VaccineTypeRe
 
     @Override
     protected void setRepository() {
-        repository = Repositories.getInstance().vaccineTypeRepository();
+        repository = Repositories.getInstance().getVaccineTypeRepository();
     }
 }

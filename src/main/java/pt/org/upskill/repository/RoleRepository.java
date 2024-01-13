@@ -8,8 +8,14 @@ public class RoleRepository extends Repository<Role> {
     public static final String ROLE_MASTER_ADMIN = "MASTER ADMIN";
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_NURSE = "NURSE";
-    public static final String ROLE_SNSUSER = "SNSUSER";
     public static final String ROLE_RECEPTIONIST = "RECEPTIONIST";
+    public static final String ROLE_SNSUSER = "SNSUSER";
+
+    public static final String ROLE_CODE_MASTER_ADMIN = "mad";
+    public static final String ROLE_CODE_ADMIN = "adm";
+    public static final String ROLE_CODE_NURSE = "nur";
+    public static final String ROLE_CODE_RECEPTIONIST = "rec";
+    public static final String ROLE_CODE_SNSUSER = "usr";
 
     private Role masterAdmin;
 
@@ -35,7 +41,7 @@ public class RoleRepository extends Repository<Role> {
 
     public Role getRoleByName(String name) {
         for (Role role : contentList) {
-            if (name.equalsIgnoreCase(role.name())) {
+            if (name.equalsIgnoreCase(role.getRoleName())) {
                 return role;
             }
         }

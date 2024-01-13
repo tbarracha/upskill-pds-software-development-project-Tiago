@@ -1,27 +1,22 @@
 package pt.org.upskill.ui;
 
-import TiWorks.Events.*;
 import pt.org.upskill.controller.BrandController;
-import pt.org.upskill.controller.EventController;
+import pt.org.upskill.controller.Controllers;
 import pt.org.upskill.controller.VaccineController;
 import pt.org.upskill.controller.VaccineTypeController;
 import pt.org.upskill.domain.Brand;
 import pt.org.upskill.domain.Vaccine;
 import pt.org.upskill.domain.VaccineType;
+import pt.org.upskill.ui.BaseUI.RegisterUI;
 import pt.org.upskill.ui.utils.Utils;
 
-import java.util.List;
+public class RegisterVaccineUI extends RegisterUI<Vaccine> {
 
-public class RegisterVaccineUI extends UI implements EventListener {
+    VaccineController vaccineController = Controllers.getInstance().getVaccineController();
+    BrandController brandController = Controllers.getInstance().getBrandController();
+    VaccineTypeController vaccineTypeController = Controllers.getInstance().getVaccineTypeController();
 
-    VaccineController vaccineController = new VaccineController();
-    BrandController brandController = new BrandController();
-    VaccineTypeController vaccineTypeController = new VaccineTypeController();
-
-    public RegisterVaccineUI() {
-        EventController.OnVaccineCreated.addListener(this);
-    }
-
+    @Override
     public void run() {
         printTitle("CREATE VACCINE");
 
@@ -34,28 +29,12 @@ public class RegisterVaccineUI extends UI implements EventListener {
             vaccineController.createVaccine(name, brand, vaccineType);
 
             //confirmation
-            vaccineController.confirm();
-
-            System.out.println("\nRegistered:");
-            vaccineController.listRepositoryItem();
+            if (vaccineController.confirm()) {
+                System.out.println();
+                System.out.println(String.format("Registered Vaccine { Name: %s, Brand: %s, Type: %s }", name, brand.getName(), vaccineType.getOptionDetails()));
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    @Override
-    public void eventFired() {
-
-    }
-
-    @Override
-    public void eventFiredParams(Object... params) {
-        List<Vaccine> vaccines = Event.getObjectTypesFromParams(params, Vaccine.class);
-
-        if (vaccines.getFirst() == null)
-            return;
-
-        Vaccine vaccine = vaccines.getFirst();
-        System.out.println("Event Detected! Vaccine created: " + vaccine);
     }
 }

@@ -24,6 +24,6 @@ public class VaccineCodeController extends Controller<VaccineCode, VaccineCodeRe
 
     @Override
     protected void setRepository() {
-        repository = Repositories.getInstance().vaccineCodeRepository();
+        repository = Repositories.getInstance().getVaccineCodeRepository();
     }
 }

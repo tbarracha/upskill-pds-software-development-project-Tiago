@@ -1,18 +1,21 @@
 package pt.org.upskill.ui;
 
+import pt.org.upskill.controller.Controllers;
 import pt.org.upskill.controller.VaccineTechController;
 import pt.org.upskill.controller.VaccineTypeController;
-import pt.org.upskill.domain.VaccineTech;
 import pt.org.upskill.domain.VaccineType;
+import pt.org.upskill.ui.BaseUI.ListUI;
+import pt.org.upskill.ui.BaseUI.UI;
 
-import java.util.List;
+public class ListVaccineTypesUI extends ListUI<VaccineType> {
 
-public class ListVaccineTypesUI extends UI {
+    private final VaccineTypeController vaccineTypeController = Controllers.getInstance().getVaccineTypeController();
+    private final VaccineTechController vaccineTechController = Controllers.getInstance().getVaccineTechController();
 
-    private final VaccineTypeController vaccineTypeController = new VaccineTypeController();
-    private final VaccineTechController vaccineTechController = new VaccineTechController();
-
+    @Override
     public void run() {
+        printTitle("LIST VACCINE TYPES");
+
         try {
             vaccineTypeController.listRepositoryOptions("LIST VACCINE TYPES", true);
         } catch (Exception e) {

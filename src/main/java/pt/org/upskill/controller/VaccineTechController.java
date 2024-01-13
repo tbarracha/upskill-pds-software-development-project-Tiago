@@ -34,6 +34,6 @@ public class VaccineTechController extends Controller<VaccineTech, VaccineTechRe
 
     @Override
     protected void setRepository() {
-        repository = Repositories.getInstance().vaccineTechRepository();
+        repository = Repositories.getInstance().getVaccineTechRepository();
     }
 }

@@ -20,6 +20,6 @@ public class BrandController extends Controller<Brand, BrandRepository> {
 
     @Override
     protected void setRepository() {
-        repository = Repositories.getInstance().brandRepository();
+        repository = Repositories.getInstance().getBrandRepository();
     }
 }

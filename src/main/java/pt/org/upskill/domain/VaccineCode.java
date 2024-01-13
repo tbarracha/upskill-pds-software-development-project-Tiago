@@ -3,7 +3,7 @@ package pt.org.upskill.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class VaccineCode implements Serializable, IOption<VaccineCode> {
+public class VaccineCode implements IOption<VaccineCode>, Serializable {
 
     private String code;
 

@@ -65,13 +65,20 @@ public class Utils {
     static public Date readDateFromConsole(String prompt) {
         do {
             try {
-                String strDate = readLineFromConsole(prompt);
+                String strDate;
+
+                do {
+                    strDate = readLineFromConsole(String.format("%s (dd-mm-yyyy): ", prompt));
+                    if (strDate.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid date format. Please enter the date in dd-mm-yyyy format.");
+                    }
+                } while (true);
 
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
-                Date date = df.parse(strDate);
-
-                return date;
+                return df.parse(strDate);
             } catch (ParseException ex) {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }

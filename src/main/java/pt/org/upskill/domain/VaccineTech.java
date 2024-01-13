@@ -3,14 +3,15 @@ package pt.org.upskill.domain;
 import pt.org.upskill.repository.Repositories;
 import pt.org.upskill.repository.VaccineTechRepository;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class VaccineTech extends Describable implements IOption {
+public class VaccineTech extends Describable implements IOption<VaccineTech>, Serializable {
     private int id;
 
     public VaccineTech(String name, String description) {
         super(name, description);
-        this.id = Repositories.getInstance().vaccineTechRepository().nextId();
+        this.id = Repositories.getInstance().getVaccineTechRepository().nextId();
     }
 
     public int getId() {

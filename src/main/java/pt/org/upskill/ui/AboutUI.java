@@ -1,5 +1,7 @@
 package pt.org.upskill.ui;
 
+import pt.org.upskill.ui.BaseUI.UI;
+
 public class AboutUI extends UI {
 
     public AboutUI() {

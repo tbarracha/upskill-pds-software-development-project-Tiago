@@ -1,8 +1,9 @@
 package pt.org.upskill.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Role {
+public class Role implements IOption<Role>, Serializable {
 
     private String name;
 
@@ -13,7 +14,7 @@ public class Role {
     protected Role() {
     }
 
-    public String name() {
+    public String getRoleName() {
         return this.name;
     }
 
@@ -36,5 +37,15 @@ public class Role {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String getOptionDetails() {
+        return name;
+    }
+
+    @Override
+    public Role getOptionType() {
+        return this;
     }
 }

@@ -1,16 +1,19 @@
 package pt.org.upskill.ui;
 
+import pt.org.upskill.controller.Controllers;
 import pt.org.upskill.controller.LoginController;
 import pt.org.upskill.session.Context;
+import pt.org.upskill.ui.BaseUI.UI;
 
 public class LogoutUI extends UI {
 
     //Controller
-    private final LoginController controller = new LoginController();
+    private final LoginController controller = Controllers.getInstance().getLoginController();
 
     private String email;
     private String password;
 
+    @Override
     public void run() {
         printTitle("LOG OUT");
 

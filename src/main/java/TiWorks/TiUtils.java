@@ -1,6 +1,5 @@
 package TiWorks;
 
-import pt.org.upskill.domain.IOption;
 import pt.org.upskill.ui.utils.Utils;
 
 import java.io.*;
@@ -31,7 +30,16 @@ public final class TiUtils {
 
     static final Boolean[] TRUE_OR_FALSE = { true, false };
 
+    public static void print(String message) {
+        System.out.println(message);
+    }
 
+    public static void print(String message, Object... params) {
+        System.out.println(String.format(message, params));
+    }
+
+    // Usefull arrays and methods used in the UpSkill java course
+    // ---------------------------------------------------------------------------------------------------------
     public static class UpSkill {
         static final String[] NOMES         = { "Vânia", "Humberto", "Tiago", "Rafa", "Anna", "Isa", "Clarissa", "Pedro", "Nuno", "Pedro", "Fransisco", "Solange", "Fábio", "Hugo", "Susana", "Tânia", "Wilson", "Sónia", "João" };
         static final String[] APELIDOS      = { "Delgado", "Barracha", "Silva", "Pereira", "Figueiredo", "Mota", "Costa", "Peixoto", "Brasão", "Vasconcelos", "Sarzedo", "Cabral" };
@@ -40,6 +48,9 @@ public final class TiUtils {
         static final String[] PROFISSOES    = { "Programador", "Front-End Dev", "Back-End Dev", "Empresário", "Artista", "Professor", "Carpinteiro", "Cerralheiro", "Mecânico" };
         static final String[] CORES         = { "Vermelho", "Azul", "Verde", "Amarelo", "Laranja", "Roxo", "Rosa", "Cinza", "Preto", "Branco" };
         static final String[] NACIONALIDADES = { "Portuguesa", "Espanhola", "Francesa", "Italiana", "Alemã", "Inglesa", "Brasileira" };
+        static final String[] EMAIL_PROVIDERS = { "gmail", "yahoo", "upskill", "hotmail", "outlook", "protonmail", "icloud", "aol", "mail", "zoho" };
+        static final String[] DOMAIN_EXTENSIONS = { ".com", ".io", ".pt", ".net", ".org", ".edu", ".gov", ".info" };
+        static final String[] EMAIL_SEPERATOR = { "", ".", "_" };
 
         public static String getRandomNome() { return Randomizer.getRandomFromArray(NOMES); }
 
@@ -71,6 +82,14 @@ public final class TiUtils {
 
         public static int getRandomIdade(int min, int max) {
             return random.nextInt(min, max + 1);
+        }
+
+        public static String getRandomEmail() {
+            return String.format("%s%s%s@%s%s", getRandomNome().toLowerCase().trim(), Randomizer.getRandomFromArray(EMAIL_SEPERATOR), getRandomApelido().toLowerCase().trim(), Randomizer.getRandomFromArray(EMAIL_PROVIDERS), Randomizer.getRandomFromArray(DOMAIN_EXTENSIONS));
+        }
+
+        public static String getRandomEmail(String name) {
+            return String.format("%s@%s%s", name, Randomizer.getRandomFromArray(EMAIL_PROVIDERS), Randomizer.getRandomFromArray(DOMAIN_EXTENSIONS));
         }
     }
 
@@ -173,6 +192,11 @@ public final class TiUtils {
             do {
                 int index = ConsoleIn.readIntegerFromConsole("Select Option: ");
 
+                if (index == -1) {
+                    System.out.println("Returning null/empty");
+                    return null;
+                }
+
                 if (isIndexWithinBounds(list, index)) {
                     T selectedOption = list.get(index);
                     if (selectedOption != null) {
@@ -217,13 +241,23 @@ public final class TiUtils {
 
     public static class Randomizer {
         public static <T> T getRandomFromArray(T[] array) {
-            int index = random.nextInt(0, array.length);
-            return array[index];
+            try {
+                int index = random.nextInt(0, array.length);
+                return array[index];
+            } catch (Exception e) {
+                System.out.println(String.format("Random from Array Error: %s", e.getMessage()));
+                return null;
+            }
         }
 
         public static <T> T getRandomFromList(List<T> list) {
-            int index = random.nextInt(0, list.size());
-            return list.get(index);
+            try {
+                int index = random.nextInt(0, list.size());
+                return list.get(index);
+            } catch (Exception e) {
+                System.out.println(String.format("Random from List Error: %s", e.getMessage()));
+                return null;
+            }
         }
 
 
@@ -396,7 +430,6 @@ public final class TiUtils {
                 return;
 
             System.out.println();
-
             if (forceUppercase) {
                 System.out.println(title.toUpperCase());
             } else{
@@ -456,13 +489,20 @@ public final class TiUtils {
         public static Date readDateFromConsole(String prompt) {
             do {
                 try {
-                    String strDate = readLineFromConsole(prompt);
+                    String strDate;
+
+                    do {
+                        strDate = readLineFromConsole(String.format("%s (dd-mm-yyyy): ", prompt));
+                        if (strDate.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid date format. Please enter the date in dd-mm-yyyy format.");
+                        }
+                    } while (true);
 
                     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
-                    Date date = df.parse(strDate);
-
-                    return date;
+                    return df.parse(strDate);
                 } catch (ParseException ex) {
                     Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -472,7 +512,7 @@ public final class TiUtils {
         public static boolean readConfirmation(String message, String truePrompt, String falsePrompt) {
             String input;
             do {
-                input = Utils.readLineFromConsole(String.format("\n%s\n", message));
+                input = Utils.readLineFromConsole(String.format("\n%s ('%s' or '%s')\n", message, truePrompt, falsePrompt));
             } while (!input.equalsIgnoreCase(truePrompt) && !input.equalsIgnoreCase(falsePrompt));
 
             return input.equalsIgnoreCase(truePrompt);

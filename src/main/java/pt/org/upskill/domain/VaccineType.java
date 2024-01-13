@@ -1,8 +1,9 @@
 package pt.org.upskill.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class VaccineType implements IOption {
+public class VaccineType implements IOption<VaccineType>, Serializable {
     private VaccineCode code;
     private String shortDescription;
     private VaccineTech vaccineTech;
@@ -39,7 +40,7 @@ public class VaccineType implements IOption {
 
     @Override
     public String getOptionDetails() {
-        return String.format("Code: %s, Tech: %s", code.getCodeString(), vaccineTech.getOptionDetails());
+        return String.format("%s - Tech: %s", code.getCodeString(), vaccineTech.getOptionDetails());
     }
 
     @Override

@@ -1,8 +1,11 @@
 package pt.org.upskill;
 
+import TiWorks.TiUtils;
 import pt.org.upskill.auth.Email;
 import pt.org.upskill.auth.Password;
+import pt.org.upskill.auth.SNSUser;
 import pt.org.upskill.auth.User;
+import pt.org.upskill.controller.Controllers;
 import pt.org.upskill.domain.Role;
 import pt.org.upskill.repository.Repositories;
 import pt.org.upskill.repository.RoleRepository;
@@ -22,11 +25,14 @@ public class Bootstrap implements Runnable {
         addRoles();
         addUsers();
         addMenus();
+
+        Repositories.getInstance();
+        Controllers.getInstance();
     }
 
     private void addRoles() {
         //TODO: add application user roles here
-        RoleRepository roleRepository = Repositories.getInstance().roleRepository();
+        RoleRepository roleRepository = Repositories.getInstance().getRoleRepository();
 
         roleRepository.addToRepository(new Role(ROLE_MASTER_ADMIN));
         roleRepository.addToRepository(new Role(ROLE_ADMIN));
@@ -37,15 +43,15 @@ public class Bootstrap implements Runnable {
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
-        UserRepository userRepository = Repositories.getInstance().userRepository();
-        RoleRepository roleRepository = Repositories.getInstance().roleRepository();
+        UserRepository userRepository = Repositories.getInstance().getUserRepository();
+        RoleRepository roleRepository = Repositories.getInstance().getRoleRepository();
 
         try {
-            userRepository.addToRepository(new User("mad", roleRepository.getRoleByName(ROLE_MASTER_ADMIN), new Email("admin", true), new Password("admin")));
-            userRepository.addToRepository(new User("adm", roleRepository.getRoleByName(ROLE_ADMIN), new Email("admin@upskill.pt", false), new Password("admin")));
-            userRepository.addToRepository(new User("nur", roleRepository.getRoleByName(ROLE_NURSE), new Email("nurse@upskill.pt", false), new Password("nurse")));
-            userRepository.addToRepository(new User("rec", roleRepository.getRoleByName(ROLE_RECEPTIONIST), new Email("receptionist@upskill.pt", false), new Password("receptionist")));
-            userRepository.addToRepository(new User("usr", roleRepository.getRoleByName(ROLE_SNSUSER), new Email("snsuser@upskill.pt", false), new Password("snsuser")));
+            userRepository.addToRepository(new User(ROLE_CODE_MASTER_ADMIN, roleRepository.getRoleByName(ROLE_MASTER_ADMIN), new Email("madmin"), new Password("admin")));
+            userRepository.addToRepository(new User(ROLE_CODE_ADMIN,        roleRepository.getRoleByName(ROLE_ADMIN), new Email("admin"), new Password("admin")));
+            userRepository.addToRepository(new User(ROLE_CODE_NURSE,        roleRepository.getRoleByName(ROLE_NURSE), new Email("nurse"), new Password("nurse")));
+            userRepository.addToRepository(new User(ROLE_CODE_RECEPTIONIST, roleRepository.getRoleByName(ROLE_RECEPTIONIST), new Email("recept"), new Password("recept")));
+            userRepository.addToRepository(new SNSUser(ROLE_CODE_SNSUSER,   roleRepository.getRoleByName(ROLE_SNSUSER), new Email("snsuser"), new Password("snsuser"), TiUtils.Randomizer.getRandomNumberString(9), TiUtils.Randomizer.getRandomNumberString(9), TiUtils.Randomizer.getRandomNumberString(9)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +59,7 @@ public class Bootstrap implements Runnable {
 
     private void addMenus() {
         //This is where we define the menu structure and respective permissions.
-        RoleRepository roleRepository = Repositories.getInstance().roleRepository();
+        RoleRepository roleRepository = Repositories.getInstance().getRoleRepository();
 
         Menu menu;
 
@@ -77,31 +83,38 @@ public class Bootstrap implements Runnable {
         menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
         menu = new Menu(menuLogin, 4, "Register Vaccine", new RegisterVaccineUI());
         menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
-        //menu = new Menu(menuLogin, 5, "Register Vaccination Center", new RegisterVaccinationCenterUI());
-        //menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
-        //menu = new Menu(menuLogin, 11, "List Employees With Role", new ListEmployeesWithRoleUI());
-        //menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
+        menu = new Menu(menuLogin, 5, "Register Vaccination Center", new RegisterVaccinationCenterUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
+        menu = new Menu(menuLogin, 6, "Register Employee", new RegisterEmployeeUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
+
         menu = new Menu(menuLogin, 12, "List Vaccine Technologies", new ListVaccineTechsUI());
         menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
         menu = new Menu(menuLogin, 13, "List Vaccine Types", new ListVaccineTypesUI());
         menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
         menu = new Menu(menuLogin, 14, "List Vaccines", new ListVaccinesUI());
         menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
+        menu = new Menu(menuLogin, 15, "List Vaccination Centers", new ListVaccinationCenterUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN), roleRepository.getRoleByName(ROLE_NURSE), roleRepository.getRoleByName(ROLE_SNSUSER));
+        menu = new Menu(menuLogin, 16, "List Employees", new ListEmployeesWithPositionUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_ADMIN));
 
         //Receptionist
-        //menu = new Menu(menuLogin, 1, "Register SNS User", new RegisterUserUI());
-        //menu.addPermission((Role) roleRepository.roleByName(ROLE_RECEPTIONIST));
-        //menu = new Menu(menuLogin, 2, "Schedule Vaccination", new ScheduleVaccinationOnBehalfOfUserUI());
-        //menu.addPermission((Role) roleRepository.roleByName(ROLE_RECEPTIONIST));
-        //menu = new Menu(menuLogin, 3, "Register SNS User Arrival", new RegisterUserArrivalUI());
-        //menu.addPermission((Role) roleRepository.roleByName(ROLE_RECEPTIONIST));
+        menu = new Menu(menuLogin, 1, "Register SNS User", new RegisterSNSUserUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_RECEPTIONIST));
+        menu = new Menu(menuLogin, 2, "Schedule Vaccination", new ScheduleVaccinationOnBehalfOfUserUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_RECEPTIONIST));
+        menu = new Menu(menuLogin, 3, "Register SNS User Arrival", new RegisterSNSUserArrivalUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_RECEPTIONIST));
 
         //SNS USer
-        //menu = new Menu(menuLogin, 1, "Schedule Vaccination", new ScheduleVaccinationUI());
-        //menu.addPermission((Role) roleRepository.roleByName(ROLE_RECEPTIONIST));
+        menu = new Menu(menuLogin, 1, "Schedule Vaccination", new ScheduleVaccinationUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_SNSUSER));
 
         //Nurse
-        //menu = new Menu(menuLogin, 1, "List User Waiting", new ListUsersWaitingUI());
-        //menu.addPermission((Role) roleRepository.roleByName(ROLE_NURSE));
+        menu = new Menu(menuLogin, 1, "List User Waiting", new ListSNSUsersWaitingUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_NURSE));
+        menu = new Menu(menuLogin, 2, "Apply Vaccination", new VaccineAadministrationUI());
+        menu.addPermission(roleRepository.getRoleByName(ROLE_NURSE));
     }
 }

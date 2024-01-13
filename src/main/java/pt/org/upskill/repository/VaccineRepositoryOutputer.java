@@ -18,7 +18,7 @@ public class VaccineRepositoryOutputer extends RepositoryOutputer<Vaccine> {
         List<Vaccine> vaccines = repository.getContentList();
         LinkedHashMap<VaccineCode, List<Vaccine>> sortedHasMap = new LinkedHashMap<>();
 
-        List<VaccineCode> codes = Repositories.getInstance().vaccineCodeRepository().getContentList();
+        List<VaccineCode> codes = Repositories.getInstance().getVaccineCodeRepository().getContentList();
         Collections.sort(codes, Comparator.comparing(VaccineCode::getCodeString));
 
         for (int i = 0; i < codes.size(); i++) {

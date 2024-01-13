@@ -14,14 +14,14 @@ public abstract class Controller<T, R extends Repository<T>> {
 
     public Controller() {
         setRepository();
-        repositoryOutputer = new RepositoryOutputer(repository);
         generateContentModels();
+        repositoryOutputer = new RepositoryOutputer(repository);
     }
 
     public Controller(R repository) {
         this.repository = repository;
-        repositoryOutputer = new RepositoryOutputer(repository);
         generateContentModels();
+        repositoryOutputer = new RepositoryOutputer(repository);
     }
 
     public boolean confirm() {
@@ -63,6 +63,11 @@ public abstract class Controller<T, R extends Repository<T>> {
     public T selectRepositoryOption(String header) {
         TiUtils.ConsoleOut.printSubSubTitle(header, false);
         return repositoryOutputer.selectOptionType(true);
+    }
+
+    public <TT> TT selectRepositoryOption(String header, Class<TT> type) {
+        TiUtils.ConsoleOut.printSubSubTitle(header, false);
+        return repositoryOutputer.selectOptionType(true, type);
     }
 
     protected boolean areContentModelsCreated() {

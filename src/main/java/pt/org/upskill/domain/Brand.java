@@ -1,8 +1,9 @@
 package pt.org.upskill.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Brand extends Describable implements IOption<Brand> {
+public class Brand extends Describable implements IOption<Brand>, Serializable {
     public Brand(String name) {
         super(name);
     }
